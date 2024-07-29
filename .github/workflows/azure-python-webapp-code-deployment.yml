@@ -5,7 +5,7 @@ name: azure-python-webapp-code-deployment
 env:
   AZURE_WEBAPP_NAME: "python-webapp-363636"
   AZURE_WEBAPP_RESOURCE_GROUP_NAME: "python-webapp-rg"
-  AZURE_WEBAPP_PACKAGE_PATH: "."
+  AZURE_WEBAPP_PACKAGE_PATH: "./release.zip"
   PYTHON_VERSION: "3.12"
 
 # Controls when the workflow will run
@@ -81,9 +81,9 @@ jobs:
         run: |
           ls -a
 
-      - name: "Run Azure Functions Action"
-        uses: Azure/functions-action@v1
-        id: deploy-to-function-app
+      - name: "Run Azure Webapp Action"
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-azure-webapp
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
