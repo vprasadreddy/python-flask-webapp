@@ -59,7 +59,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            ./code/release.zip
             !venv/
 
       - name: check in core folder
@@ -70,30 +70,39 @@ jobs:
 
       - name: check files in root
         shell: bash
+        working-directory: ./
         run: |
           ls -a
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: "Login via Azure CLI"
-  #       uses: azure/login@v1
-  #       with:
-  #         creds: ${{ secrets.AZURE_CREDENTIALS }}
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./code
+    needs: build
+    steps:
+      - name: check files in root
+        shell: bash
+        working-directory: ./
+        run: |
+          ls -a
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-  #     - name: "Download artifact from build job"
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: python-app
+      - name: "Download artifact from build job"
+        uses: actions/download-artifact@v3
+        with:
+          name: python-app
 
-  #     - name: Unzip artifact for deployment
-  #       run: unzip release.zip
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
-  #     - name: check files
-  #       shell: bash
-  #       run: |
-  #         ls -a
+      - name: check files
+        shell: bash
+        run: |
+          ls -a
 
   #     - name: "Run Azure Webapp Action"
   #       uses: azure/webapps-deploy@v2
