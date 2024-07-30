@@ -96,13 +96,18 @@ jobs:
         with:
           name: python-app
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-
       - name: check files
         shell: bash
         run: |
           ls -a
+
+      # - name: Unzip artifact for deployment
+      #   run: unzip release.zip
+
+      # - name: check files
+      #   shell: bash
+      #   run: |
+      #     ls -a
 
   #     - name: "Run Azure Webapp Action"
   #       uses: azure/webapps-deploy@v2
