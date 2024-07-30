@@ -100,13 +100,16 @@ jobs:
         with:
           name: python-app
 
-      - name: check files
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: check files in current working directory
         shell: bash
         run: |
           ls -a
 
-      # - name: Unzip artifact for deployment
-      #   run: unzip release.zip
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
       # - name: check files
       #   shell: bash
