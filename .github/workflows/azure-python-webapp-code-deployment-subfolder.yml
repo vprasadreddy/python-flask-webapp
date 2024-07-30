@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: azure-python-webapp-code-deployment
+name: azure-python-webapp-code-deployment-subfolder
 
 env:
   AZURE_WEBAPP_NAME: "python-webapp-9999"
@@ -11,8 +11,8 @@ env:
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: ["main"]
+  # push:
+  #   branches: ["main"]
   # pull_request:
   #   branches: ["main"]
 
@@ -25,6 +25,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./code
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -56,8 +59,14 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            ./code/release.zip
             !venv/
+
+      - name: check in core folder
+        shell: bash
+        working-directory: ./code
+        run: |
+          ls -a
 
       - name: check files in root
         shell: bash
@@ -67,6 +76,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: ./code
     needs: build
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
