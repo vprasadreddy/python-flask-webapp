@@ -76,9 +76,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./code
+    # defaults:
+    #   run:
+    #     working-directory: ./code
     needs: build
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -87,9 +87,9 @@ jobs:
 
       - name: check files in root
         shell: bash
-        working-directory: ./
         run: |
           ls -a
+
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
@@ -108,8 +108,8 @@ jobs:
         run: |
           ls -a
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      # - name: Unzip artifact for deployment
+      #   run: unzip release.zip
 
       # - name: check files
       #   shell: bash
