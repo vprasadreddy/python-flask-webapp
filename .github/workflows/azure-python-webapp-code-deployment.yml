@@ -3,7 +3,7 @@
 name: azure-python-webapp-code-deployment
 
 env:
-  AZURE_WEBAPP_NAME: "python-webapp-363636"
+  AZURE_WEBAPP_NAME: "python-webapp-9999"
   AZURE_WEBAPP_RESOURCE_GROUP_NAME: "python-webapp-rg"
   AZURE_WEBAPP_PACKAGE_PATH: "./release.zip"
   PYTHON_VERSION: "3.12"
@@ -108,18 +108,15 @@ jobs:
         run: |
           ls -a
 
-      # - name: Unzip artifact for deployment
-      #   run: unzip release.zip
+      - name: check files in zip file
+        shell: bash
+        run: |
+          unzip -l release.zip
 
-      # - name: check files
-      #   shell: bash
-      #   run: |
-      #     ls -a
-
-  #     - name: "Run Azure Webapp Action"
-  #       uses: azure/webapps-deploy@v2
-  #       id: deploy-to-azure-webapp
-  #       with:
-  #         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-  #         package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
-  #         # publish-profile: "${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}"
+      - name: "Run Azure Webapp Action"
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-azure-webapp
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+          # publish-profile: "${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}"
