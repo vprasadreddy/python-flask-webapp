@@ -1,5 +1,5 @@
 from flask import Flask
-from azure.identity import DefaultAzureCredential
+# from azure.identity import DefaultAzureCredential
 
 app = Flask(__name__)
 
