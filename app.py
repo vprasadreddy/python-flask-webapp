@@ -1,5 +1,6 @@
 from flask import Flask
 # from azure.identity import DefaultAzureCredential
+from confluent_kafka import Consumer
 
 app = Flask(__name__)
 
