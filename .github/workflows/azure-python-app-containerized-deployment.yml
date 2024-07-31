@@ -81,13 +81,13 @@ jobs:
       #     push: true
       #     tags: ${{ env.AZURE_REGISTRY_LOGIN_SERVER}}/${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
 
-      # Publish docker image to Azure Function App.
-      - name: "Update Azure Function App Container with Image"
-        uses: Azure/functions-container-action@v1
-        id: function-app-container
+      # Publish docker image to Azure WebApp.
+      - name: "Run Azure Webapp Action"
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-azure-webapp
         with:
-          app-name: ${{env.AZURE_FUNCTIONAPP_NAME}}
-          image: ${{ env.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          images: ${{ env.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       # Update Function App Settings
       # - name: Update Function App Settings
