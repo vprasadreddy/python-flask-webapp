@@ -1,5 +1,4 @@
 from flask import Flask
-from confluent_kafka import Consumer
 
 app = Flask(__name__)
 
