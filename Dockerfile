@@ -2,15 +2,16 @@ FROM python:3.10.2
 
 WORKDIR /usr/src/app
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends gcc librdkafka-dev
+RUN apt-get update \ 
+    && apt-get install -y --no-install-recommends gcc librdkafka-dev
 
 COPY requirements.txt ./
 
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install confluent-kafka
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
+RUN python -m pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && pip install confluent-kafka \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
