@@ -49,6 +49,13 @@ jobs:
           pip install -r requirements.txt
           # pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
 
+      # Run test cases and code coverage
+      # - name: "run test cases"
+      #   shell: bash
+      #   run: |
+      #     pip install pytest-cov
+      #     python -m pytest --junitxml=test-results/results.xml --cov=. --cov-report=xml
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r #-- package the project
 
@@ -74,15 +81,11 @@ jobs:
         with:
           name: python-app
 
-      - name: check files
-        shell: bash
-        run: |
-          ls -a
-
       - name: "Run Azure Webapp Action"
         uses: azure/webapps-deploy@v2
         id: deploy-to-azure-webapp
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-name: "${{ env.AZURE_WEBAPP_NAME }}"
           package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+          # publish-profile is not required when using azure/login@v1 action to Login into Azure.
           # publish-profile: "${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}"
