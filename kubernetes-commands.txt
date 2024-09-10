@@ -1,0 +1,16 @@
+minikube start
+minikube stop
+
+kubectl apply --filename kaniko-pod.yml
+kubectl logs kaniko --follow
+kubectl get pods
+kubectl delete pod kaniko
+
+kubectl create secret docker-registry docker-registry-secret --docker-server=https://index.docker.io/v1/ --docker-username=xxxxxxx --docker-password=xxxxxxx --docker-email=xxxxxxx
+
+kubectl get secrets
+
+kubectl config view --minify | grep namespace:
+
+kubectl get namespace
+kubectl get namespaces
