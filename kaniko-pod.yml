@@ -13,7 +13,7 @@ spec:
       args:
         - "--dockerfile=Dockerfile"
         - "--context=git://github.com/vprasadreddy/python-flask-webapp.git"
-        - "--destination=prasadreddy2349/python-image-using-kaniko:latest"
+        - "--destination=aksdevclusteracr.azurecr.io/python-image-using-kaniko:2"
       resources:
         limits:
           cpu: 200m
@@ -21,6 +21,12 @@ spec:
         requests:
           cpu: 100m
           memory: 200Mi
+      env:
+        - name: GIT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: git-token
+              key: GIT_TOKEN
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
@@ -28,7 +34,7 @@ spec:
   volumes:
     - name: kaniko-secret
       secret:
-        secretName: docker-registry-secret
+        secretName: azure-acr-secret
         items:
           - key: .dockerconfigjson
             path: config.json
