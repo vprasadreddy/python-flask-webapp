@@ -10,6 +10,22 @@ kubectl create secret docker-registry docker-registry-secret --docker-server=htt
 
 kubectl create secret generic git-token --from-literal='GIT_TOKEN=github_pat_token'
 
+#Secret Using Bash Script
+kubectl create secret docker-registry azure-acr-secret \ --namespace default \ --docker-server=<container-registry-name>.azurecr.io \ --docker-username=<container-registry-username> \ --docker-password=<container-registry-password>
+
+#Secret Using PowerShell Script
+$containerRegistry = "aksdevclusteracr"
+
+$registryLoginServer = az acr show -n $containerRegistry --query loginServer --output tsv
+
+$registryUsername=az acr credential show -n $containerRegistry --query username --output tsv
+
+$registryPassword=az acr credential show -n $containerRegistry --query 'passwords[0].value' --output tsv
+
+$login_email="user@company.com"
+
+kubectl create secret docker-registry azure-acr-secret --namespace default --docker-server=$registryLoginServer --docker-username=$registryUsername --docker-password=$registryPassword --docker-email=$login_email
+
 kubectl get secrets
 
 kubectl config view --minify | grep namespace:
