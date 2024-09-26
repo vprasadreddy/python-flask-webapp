@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: kaniko-pipeline
 
 on:
   # push:
@@ -13,14 +13,13 @@ jobs:
   kaniko-build:
     runs-on: ubuntu-latest
     container:
-      image: gcr.io/kaniko-project/executor:debug 
+      image: gcr.io/kaniko-project/executor:debug
     permissions:
-      contents: read 
+      contents: read
 
-    outputs:
-      commit_sha_short: ${{ steps.commit_sha.outputs.sha_short }}
+    # outputs:
+    #   commit_sha_short: ${{ steps.commit_sha.outputs.sha_short }}
     steps:
-
       # - uses: actions/checkout@v2
 
       # - name: short commit sha
@@ -32,13 +31,8 @@ jobs:
 
       - name: Build and Push Image with kaniko
         run: |
-          # echo "{\"credHelpers\":{\"${{ env.ACR_URL }}\":\"acr-env\"}}" > /kaniko/.docker/config.json
-
-          /kaniko/executor --dockerfile="Dockerfile" \
-          --context=git://github.com/vprasadreddy/python-flask-webapp.git \
-          --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:3 \
-          --push-retry 3
-        # env: 
+          /kaniko/executor --dockerfile="Dockerfile" --context="git://github.com/vprasadreddy/python-flask-webapp.git" --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:3" --push-retry 3
+        # env:
         #   AZURE_CLIENT_ID: ${{ secrets.ACR_SPN_CLIENT_ID }}
         #   AZURE_CLIENT_SECRET: ${{ secrets.ACR_SPN_PASSWORD }}
         #   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
