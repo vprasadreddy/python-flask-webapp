@@ -39,7 +39,7 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.ACR_SPN_CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.ACR_SPN_CLIENT_SECRET }}
           AZURE_TENANT_ID: ${{ secrets.ACR_SPN_TENANT_ID }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
 
       # - name: Build and Push Image with kaniko
       #   run: |
