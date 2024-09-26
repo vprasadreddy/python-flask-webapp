@@ -35,7 +35,7 @@ jobs:
           # echo "{\"credHelpers\":{\"${{ env.ACR_URL }}\":\"acr-env\"}}" > /kaniko/.docker/config.json
 
           kaniko/executor --dockerfile="Dockerfile" \
-            --context=git://github.com/vprasadreddy/python-flask-webapp.git
+            --context=git://github.com/vprasadreddy/python-flask-webapp.git \
             --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:3 \
             --push-retry 3
         # env: 
