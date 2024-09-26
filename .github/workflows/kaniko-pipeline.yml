@@ -32,6 +32,7 @@ jobs:
       - name: Build and Push Image with kaniko
         run: |
           /kaniko/executor --dockerfile="Dockerfile" \
+          --context="git://github.com/vprasadreddy/python-flask-webapp.git" \
           --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:4" \
           --push-retry 3
         env:
