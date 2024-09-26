@@ -21,7 +21,7 @@ jobs:
       commit_sha_short: ${{ steps.commit_sha.outputs.sha_short }}
     steps:
 
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
 
       - name: short commit sha
         id: commit_sha
