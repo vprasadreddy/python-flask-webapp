@@ -31,8 +31,8 @@ jobs:
 
       - name: Build and Push Image with kaniko
         run: |
-          /kaniko/executor --dockerfile="Dockerfile" --context="git://github.com/vprasadreddy/python-flask-webapp.git" --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:3" --push-retry 3
-        # env:
-        #   AZURE_CLIENT_ID: ${{ secrets.ACR_SPN_CLIENT_ID }}
-        #   AZURE_CLIENT_SECRET: ${{ secrets.ACR_SPN_PASSWORD }}
-        #   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          /kaniko/executor --dockerfile="Dockerfile" --context="git://github.com/vprasadreddy/python-flask-webapp.git" --destination="aksdevclusteracr.azurecr.io/python-image-using-kaniko:4" --push-retry 3
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.ACR_SPN_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.ACR_SPN_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.ACR_SPN_TENANT_ID }}
