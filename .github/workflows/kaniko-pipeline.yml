@@ -12,10 +12,10 @@ env:
 jobs:
   kaniko-build:
     runs-on: ubuntu-latest
-    container:
-      image: gcr.io/kaniko-project/executor:debug
     permissions:
       contents: read
+    container:
+      image: gcr.io/kaniko-project/executor:debug
 
     # outputs:
     #   commit_sha_short: ${{ steps.commit_sha.outputs.sha_short }}
