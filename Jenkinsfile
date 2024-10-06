@@ -10,11 +10,11 @@ pipeline {
                 echo 'cleaning workspace...'
             }
                 }
-        // stage('Checkout Git Branch') {
-        //     steps {
-        //         git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
-        //     }
-        // }
+        stage('Checkout Git Branch') {
+            steps {
+                git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
+            }
+        }
         stage('Build Application') {
             steps {
                 sh 'python3 -m pip install --upgrade pip'
