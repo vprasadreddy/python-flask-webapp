@@ -42,7 +42,7 @@ jobs:
 
       - name: Create and start virtual environment
         run: | #-- 'run' is used to run commands on environment
-          python -m venv .venv 
+          python -m venv .venv
           source .venv/bin/activate
 
       - name: install python dependencies
