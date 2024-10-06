@@ -50,6 +50,7 @@ pipeline {
                         // sh 'az acount show'
                         // }
                         // }
+                        sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
                         azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
                     }
                 }
