@@ -2,6 +2,14 @@
 pipeline {
     agent any
     stages {
+                stage('Workspace Cleanup') {
+            steps {
+                // Clean before build
+                cleanWs()
+                // We need to explicitly checkout from SCM here
+                echo 'cleaning workspace...'
+            }
+                }
         // stage('Checkout Git Branch') {
         //     steps {
         //         git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
