@@ -6,7 +6,6 @@ pipeline {
             steps {
                 // Clean before build
                 cleanWs()
-                // We need to explicitly checkout from SCM here
                 echo 'cleaning workspace...'
             }
                 }
@@ -41,6 +40,16 @@ pipeline {
                     // Print the contents of the current directory to verify the zip
                     sh "zipinfo ${zipFileName}"
                 }
+                    }
+                }
+                stage('Login to Azure') {
+                    steps {
+                        script {
+                        withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
+                        sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                        sh 'az acount show'
+                        }
+                        }
                     }
                 }
     }
