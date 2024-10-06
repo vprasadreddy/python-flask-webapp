@@ -19,16 +19,7 @@ pipeline {
                     // Define the name of the zip file
                     def zipFileName = 'workspace-archive.zip'
                     // Zip the entire workspace directory
-                    sh """
-                        zip -r ${zipFileName} . \
-                        -x '.github/*' \
-                        -x '.gitignore' \
-                        -x 'node_modules/*' \
-                        -x '.git/*' \
-                        -x '.dockerignore' \
-                        -x 'Jenkinsfile' \
-                        -x '*.md'
-                    """
+                    sh "zip -r ${zipFileName} . -x '.github/*' '.gitignore' 'node_modules/*' '.git/*' '.dockerignore' 'Jenkinsfile' '*.md'"
                     // Print the contents of the current directory to verify the zip
                     sh 'unzip -l workspace-archive.zip'
                 }
