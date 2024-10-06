@@ -1,16 +1,19 @@
-#!groovy
 pipeline {
     agent any
     stages {
-        stage('Checkout Git Branch') {
-                agent {
-                docker {
-                    image 'python:2-alpine'
-                }
-                }
+        stage('Stage 1') {
             steps {
-                sh 'python - m pip install - upgrade pip'
-                sh 'pip install -r requirements.txt'
+                echo 'This is stage 1'
+            }
+        }
+        stage('Stage 2') {
+            steps {
+                echo 'This is stage 2'
+            }
+        }
+        stage('Stage 3') {
+            steps {
+                echo 'This is stage 3'
             }
         }
     }
