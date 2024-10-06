@@ -24,6 +24,7 @@ pipeline {
                         -x '.github/*' \
                         -x '.gitignore' \
                         -x 'node_modules/*' \
+                        -x '.git/*' \
                         -x '*.md'
                     """
                     // Print the contents of the current directory to verify the zip
