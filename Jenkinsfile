@@ -14,6 +14,7 @@ pipeline {
             }
         }
                 stage('Package Application') {
+                    steps {
                 script {
                     // Define the name of the zip file
                     def zipFileName = 'workspace-archive.zip'
@@ -22,6 +23,7 @@ pipeline {
                     // Print the contents of the current directory to verify the zip
                     sh "ls -lh ${zipFileName}"
                 }
+                    }
                 }
     }
 }
