@@ -19,7 +19,13 @@ pipeline {
                     // Define the name of the zip file
                     def zipFileName = 'workspace-archive.zip'
                     // Zip the entire workspace directory
-                    sh "zip -r ${zipFileName} ."
+                    sh """
+                        zip -r ${zipFileName} . \
+                        -x '.github/*' \
+                        -x '.gitignore' \
+                        -x 'node_modules/*' \
+                        -x '*.md'
+                    """
                     // Print the contents of the current directory to verify the zip
                     sh "ls -lh ${zipFileName}"
                     sh 'zipinfo workspace-archive'
