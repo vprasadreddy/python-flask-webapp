@@ -22,6 +22,7 @@ pipeline {
                     sh "zip -r ${zipFileName} ."
                     // Print the contents of the current directory to verify the zip
                     sh "ls -lh ${zipFileName}"
+                    sh 'zipinfo workspace-archive'
                 }
                     }
                 }
