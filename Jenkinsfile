@@ -21,13 +21,13 @@ pipeline {
                     // Zip the entire workspace directory
                     sh """
                         zip -r ${zipFileName} . \
-                        -x './.github/*' \
-                        -x './.gitignore' \
-                        -x './node_modules/*' \
-                        -x '.git\*' \
-                        -x './.dockerignore' \
-                        -x './Jenkinsfile' \
-                        -x './*.md'
+                        -x '.github/*' \
+                        -x '.gitignore' \
+                        -x 'node_modules/*' \
+                        -x '.git/*' \
+                        -x '.dockerignore' \
+                        -x 'Jenkinsfile' \
+                        -x '*.md'
                         """
                     // Print the contents of the current directory to verify the zip
                     sh "zipinfo ${zipFileName}"
