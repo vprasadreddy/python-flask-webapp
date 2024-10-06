@@ -44,12 +44,13 @@ pipeline {
                 }
                 stage('Login to Azure') {
                     steps {
-                        script {
-                        withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
-                        sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-                        sh 'az acount show'
-                        }
-                        }
+                        // script {
+                        // withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
+                        // sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                        // sh 'az acount show'
+                        // }
+                        // }
+                        azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
                     }
                 }
     }
