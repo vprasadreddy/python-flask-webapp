@@ -30,7 +30,7 @@ pipeline {
                         -x '*.md'
                     """
                     // Print the contents of the current directory to verify the zip
-                    sh 'unzip -l ${zipFileName}'
+                    sh 'unzip -l workspace-archive.zip'
                 }
                     }
                 }
