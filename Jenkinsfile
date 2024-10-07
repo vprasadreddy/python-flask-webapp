@@ -2,6 +2,10 @@
 
 pipeline {
     agent any
+        environment {
+        AZURE_RESOURCE_GROUP    = 'python-webapp-rg'
+        WEBAPP_NAME = "python-webapp"
+    }
     stages {
         stage('Workspace Cleanup') {
             steps {
@@ -25,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Define the name of the zip file
-                    def zipFileName = 'workspace-archive.zip'
+                    def zipFileName = 'python-app-package-.zip'
                     // Zip the entire workspace directory
                     // sh """
                     //     zip -r ${zipFileName} . \
@@ -48,7 +52,8 @@ pipeline {
                 script {
                 withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
                 sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-                sh 'az account show'
+                // sh 'az account show'
+                sh 'az webapp deploy --resource-group ${AZURE_RESOURCE_GROUP} --name ${WEBAPP_NAME} --src-path "./${zipFileName}"'
                 }
                 }
                 // azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
