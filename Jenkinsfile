@@ -1,14 +1,15 @@
 #!groovy
+
 pipeline {
     agent any
     stages {
-                stage('Workspace Cleanup') {
+        stage('Workspace Cleanup') {
             steps {
                 // Clean before build
                 cleanWs()
                 echo 'cleaning workspace...'
             }
-                }
+        }
         stage('Checkout Git Branch') {
             steps {
                 git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
@@ -20,8 +21,8 @@ pipeline {
                 sh 'pip3 install -r requirements.txt'
             }
         }
-                stage('Package Application') {
-                    steps {
+        stage('Package Application') {
+            steps {
                 script {
                     // Define the name of the zip file
                     def zipFileName = 'workspace-archive.zip'
@@ -40,18 +41,18 @@ pipeline {
                     // Print the contents of the current directory to verify the zip
                     sh "zipinfo ${zipFileName}"
                 }
-                    }
+            }
+        }
+        stage('Login to Azure') {
+            steps {
+                script {
+                withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
+                sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                sh 'az acount show'
                 }
-                stage('Login to Azure') {
-                    steps {
-                        // script {
-                        // withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
-                        // sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-                        // sh 'az acount show'
-                        // }
-                        // }
-                        azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
-                    }
                 }
+                // azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
+            }
+        }
     }
 }
