@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Define the name of the zip file
-                    def zipFileName = 'python-app-package-.zip'
+                    def zipFileName = 'python-app-package.zip'
                     // Zip the entire workspace directory
                     // sh """
                     //     zip -r ${zipFileName} . \
@@ -53,7 +53,7 @@ pipeline {
                 withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
                 sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
                 // sh 'az account show'
-                sh 'az webapp deploy --resource-group ${AZURE_RESOURCE_GROUP} --name ${WEBAPP_NAME} --src-path "${WORKSPACE}/${zipFileName}"'
+                sh 'az webapp deploy --resource-group ${AZURE_RESOURCE_GROUP} --name ${WEBAPP_NAME} --src-path "${WORKSPACE}/python-app-package.zip"'
                 }
                 }
                 // azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
