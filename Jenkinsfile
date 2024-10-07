@@ -11,7 +11,7 @@ pipeline {
                 }
         stage('Checkout Git Branch') {
             steps {
-                git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
+                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/vprasadreddy/python-flask-webapp.git'
             }
         }
         stage('Build Application') {
@@ -50,7 +50,6 @@ pipeline {
                         // sh 'az acount show'
                         // }
                         // }
-                        sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | bash'
                         azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
                     }
                 }
