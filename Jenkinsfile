@@ -42,6 +42,7 @@ pipeline {
           //     -x 'Jenkinsfile' \
           //     -x '*.md'
           //     """
+          /* Zip all contents inside code folder, excluding the root folder(code folder itself).*/
           sh "cd code && zip -r ../${PACKAGE_NAME} ./*"
           // Print the contents of the current directory to verify the zip
           sh "zipinfo ${PACKAGE_NAME}"
