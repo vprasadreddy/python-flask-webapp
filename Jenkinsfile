@@ -41,7 +41,7 @@ pipeline {
                     //     -x 'Jenkinsfile' \
                     //     -x '*.md'
                     //     """
-                    sh " cd ./code && zip -r ${zipFileName} ./* && cd -"
+                    sh "cd code && zip -r ../${zipFileName} ./*"
                     // Print the contents of the current directory to verify the zip
                     sh "zipinfo ${zipFileName}"
                 }
