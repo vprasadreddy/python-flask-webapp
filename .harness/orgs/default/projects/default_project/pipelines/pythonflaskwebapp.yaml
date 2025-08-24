@@ -1,0 +1,56 @@
+pipeline:
+  name: python-flask-webapp
+  identifier: pythonflaskwebapp
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github
+        repoName: python-flask-webapp
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: git_clone
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+            paths: []
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: GitClone_1
+                  identifier: GitClone_1
+                  spec:
+                    connectorRef: account.Github
+                    repoName: python-flask-webapp
+                    build:
+                      type: branch
+                      spec:
+                        branch: main
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: jjjj
+                    shell: Bash
+                    command: |-
+                      python -m pip install --upgrade pip
+                      pip install -r requirements.txt
