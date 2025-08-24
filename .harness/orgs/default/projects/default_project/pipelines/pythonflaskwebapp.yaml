@@ -45,10 +45,17 @@ pipeline:
                         branch: main
               - step:
                   type: Run
-                  name: Run_1
+                  name: install python dependencies
                   identifier: Run_1
                   spec:
                     shell: Sh
                     command: |-
                       python -m pip install --upgrade pip
                       pip install -r requirements.txt
+              - step:
+                  type: Run
+                  name: Zip artifact for deployment
+                  identifier: Zip_artifact_for_deployment
+                  spec:
+                    shell: Sh
+                    command: zip release.zip ./* -r
